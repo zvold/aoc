@@ -1,0 +1,3 @@
+Button A: X+51, Y+11
+Button B: X+38, Y+78
+Prize: X=63, Y=223

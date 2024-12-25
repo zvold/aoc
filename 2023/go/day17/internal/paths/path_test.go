@@ -1,8 +1,9 @@
 package paths
 
 import (
-	"github.com/zvold/aoc/2023/go/util"
 	"testing"
+
+	"github.com/zvold/aoc/2023/go/util"
 )
 
 func TestPath_String(t *testing.T) {

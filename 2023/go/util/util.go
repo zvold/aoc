@@ -7,6 +7,7 @@ import (
 	"io/fs"
 	"log"
 	"os"
+	"strconv"
 )
 
 var inputFlag = flag.String("input", "", "Filename to read the input from. When set to the special value '-', read from the standard input.")
@@ -39,4 +40,19 @@ func OpenInputFile(f embed.FS) (fs.File, CloserFunc) {
 			}
 		}
 	}
+}
+func ParseInt(s string) int {
+	x, err := strconv.Atoi(s)
+	if err != nil {
+		log.Fatalf("Cannot parse int: %s", s)
+	}
+	return x
+}
+
+func ParseInt64(s string) int64 {
+	x, err := strconv.ParseInt(s, 10, 64)
+	if err != nil {
+		log.Fatalf("Cannot parse int: %s", s)
+	}
+	return x
 }

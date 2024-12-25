@@ -1,0 +1,6 @@
+aa-ba
+ab-bb
+ac-bc
+aa-ab
+ab-ac
+aa-ac

@@ -3,8 +3,9 @@ package paths
 import (
 	"container/heap"
 	"fmt"
-	"github.com/zvold/aoc/2023/go/util"
 	"testing"
+
+	"github.com/zvold/aoc/2023/go/util"
 )
 
 func TestQueue_operation(t *testing.T) {

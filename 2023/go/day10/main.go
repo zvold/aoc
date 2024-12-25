@@ -5,10 +5,11 @@ import (
 	"embed"
 	"flag"
 	"fmt"
-	"github.com/zvold/aoc/2023/go/util"
 	"io/fs"
 	"log"
 	"slices"
+
+	"github.com/zvold/aoc/2023/go/util"
 )
 
 //go:embed input-1.txt
