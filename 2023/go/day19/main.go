@@ -5,25 +5,25 @@ import (
 	"embed"
 	"flag"
 	"fmt"
+	u "github.com/zvold/aoc/2023/go/util"
 	"io/fs"
 	"log"
 	"regexp"
-	"strconv"
 	"strings"
-
-	u "github.com/zvold/aoc/2023/go/util"
 )
 
 //go:embed input-1.txt
 var f embed.FS
 
+type Interval = u.Interval[int]
+
 type node struct {
 	id         string
-	x, m, a, s u.Interval
+	x, m, a, s Interval
 }
 
 // Applies the interval 'i' to the specified category 'cat' of the node.
-func (n *node) apply(cat byte, i u.Interval) {
+func (n *node) apply(cat byte, i Interval) {
 	switch cat {
 	case 'x':
 		n.x = *n.x.And(i) // And() returning nil is unexpected and should crash.
@@ -56,16 +56,16 @@ type rule struct {
 }
 
 // Transforms the 'comp' string of the rule into the concrete interval.
-func (r rule) interval() (name byte, i u.Interval) {
+func (r rule) interval() (name byte, i Interval) {
 	if len(r.comp) == 0 {
 		log.Fatal("Callers should not call rule.interval() on rules with empty 'comp' part.")
 	}
 	name = r.comp[0]
 	switch r.comp[1] {
 	case '<':
-		i = u.Interval{L: 1, R: parseInt(r.comp[2:]) - 1}
+		i = Interval{L: 1, R: u.ParseInt(r.comp[2:]) - 1}
 	case '>':
-		i = u.Interval{L: parseInt(r.comp[2:]) + 1, R: 4000}
+		i = Interval{L: u.ParseInt(r.comp[2:]) + 1, R: 4000}
 	default:
 		log.Fatalf("Unexpected operator in the rule's 'comp' part: %s.", r.comp)
 	}
@@ -73,8 +73,8 @@ func (r rule) interval() (name byte, i u.Interval) {
 }
 
 // Returns negation of the interval, assuming the whole available space is [1, 4000].
-func invert(i u.Interval) u.Interval {
-	subs := u.Interval{L: 1, R: 4000}.Sub(i)
+func invert(i Interval) Interval {
+	subs := Interval{L: 1, R: 4000}.Sub(i)
 	if len(subs) != 1 {
 		// Inversion should never split interval in two (because rules have only a single operator).
 		log.Fatalf("Unexpected interval inversion: %v", i)
@@ -139,7 +139,7 @@ func solve(file fs.File) {
 
 	// Convert workflows into a graph of nodes.
 	// We start at the node 'in' which has no restrictions on any of the part categories.
-	i := u.Interval{L: 1, R: 4000}
+	i := Interval{L: 1, R: 4000}
 	n := node{id: "in", x: i, m: i, a: i, s: i}
 	nodes[n.id] = &n
 
@@ -252,24 +252,16 @@ func parsePart(line string) (p *part) {
 	for _, v := range strings.Split(line[1:len(line)-1], ",") {
 		switch v[0] {
 		case 'x':
-			p.x = parseInt(v[2:])
+			p.x = u.ParseInt(v[2:])
 		case 'm':
-			p.m = parseInt(v[2:])
+			p.m = u.ParseInt(v[2:])
 		case 'a':
-			p.a = parseInt(v[2:])
+			p.a = u.ParseInt(v[2:])
 		case 's':
-			p.s = parseInt(v[2:])
+			p.s = u.ParseInt(v[2:])
 		}
 	}
 	return p
-}
-
-func parseInt(s string) int {
-	v, err := strconv.Atoi(s)
-	if err != nil {
-		log.Fatal("Parse error")
-	}
-	return v
 }
 
 var unique int

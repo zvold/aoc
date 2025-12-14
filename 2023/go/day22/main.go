@@ -5,22 +5,22 @@ import (
 	"embed"
 	"flag"
 	"fmt"
+	u "github.com/zvold/aoc/2023/go/util"
 	"io/fs"
 	"log"
 	"slices"
-	"strconv"
 	"strings"
-
-	u "github.com/zvold/aoc/2023/go/util"
 )
 
 //go:embed input-1.txt
 var f embed.FS
 
+type Interval = u.Interval[int]
+
 var maxZ int
 
 type block struct {
-	x, y, z u.Interval
+	x, y, z Interval
 }
 
 func (b *block) String() string {
@@ -71,11 +71,11 @@ func (b *block) getTargetHeight(blocks map[int][]*block, ignore map[*block]bool)
 	return min(b.z.L, targetHeight)
 }
 
-func newBlock(x, y, z u.Interval) block {
+func newBlock(x, y, z Interval) block {
 	return block{
-		u.Interval{L: min(x.L, x.R), R: max(x.L, x.R)},
-		u.Interval{L: min(y.L, y.R), R: max(y.L, y.R)},
-		u.Interval{L: min(z.L, z.R), R: max(z.L, z.R)},
+		Interval{L: min(x.L, x.R), R: max(x.L, x.R)},
+		Interval{L: min(y.L, y.R), R: max(y.L, y.R)},
+		Interval{L: min(z.L, z.R), R: max(z.L, z.R)},
 	}
 }
 
@@ -261,7 +261,7 @@ func printBlocks(blocks map[int][]*block) {
 
 func parseBlock(s string) block {
 	g := strings.Split(s, "~")
-	vec := make([]u.Interval, 3)
+	vec := make([]Interval, 3)
 	vec[0].L, vec[1].L, vec[2].L = parseInts(g[0])
 	vec[0].R, vec[1].R, vec[2].R = parseInts(g[1])
 	return newBlock(vec[0], vec[1], vec[2])
@@ -269,13 +269,5 @@ func parseBlock(s string) block {
 
 func parseInts(s string) (int, int, int) {
 	g := strings.Split(s, ",")
-	return parseInt(g[0]), parseInt(g[1]), parseInt(g[2])
-}
-
-func parseInt(s string) int {
-	v, err := strconv.Atoi(s)
-	if err != nil {
-		log.Fatalf("Cannot parse integer: %s", s)
-	}
-	return v
+	return u.ParseInt(g[0]), u.ParseInt(g[1]), u.ParseInt(g[2])
 }
