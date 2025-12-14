@@ -1,0 +1,4 @@
+github.com/zvold/aoc/2023/go v0.3.0 h1:87ZYcy3dcwqJtTM1gQ43TBlJns2QboQ2SoZi3vZDVQ4=
+github.com/zvold/aoc/2023/go v0.3.0/go.mod h1:l9uteF65FIXNMuqC6PQqGmWniuCVr3xG9z2U3uZlwBc=
+golang.org/x/exp v0.0.0-20231219180239-dc181d75b848 h1:+iq7lrkxmFNBM7xx+Rae2W6uyPfhPeDWD+n+JgppptE=
+golang.org/x/exp v0.0.0-20231219180239-dc181d75b848/go.mod h1:iRJReGqOEeBhDZGkGbynYwcHlctCvnjTYIamk7uXpHI=
