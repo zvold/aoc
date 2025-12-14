@@ -4,16 +4,17 @@ import (
 	"embed"
 	"flag"
 	"fmt"
+	"github.com/zvold/aoc/2023/go/util"
 	"io"
 	"io/fs"
 	"log"
 	"slices"
-
-	"github.com/zvold/aoc/2023/go/util"
 )
 
 //go:embed input-1.txt
 var f embed.FS
+
+type Interval = util.Interval[int]
 
 type desc struct {
 	i int // Index of the block (or gap) we're looking at.
@@ -85,11 +86,11 @@ func solve(file fs.File) {
 	fmt.Printf("Task 1 - sum: %d\n", sum1)
 
 	// Prepare two lists of intervals: block intervals and empty intervals.
-	blocks := make([]util.Interval, 0)
-	gaps := make([]util.Interval, 0)
+	blocks := make([]Interval, 0)
+	gaps := make([]Interval, 0)
 	last := 0
 	for i, v := range buf {
-		interval := util.Interval{L: last, R: last + int(v-48) - 1}
+		interval := Interval{L: last, R: last + int(v-48) - 1}
 		if i%2 == 0 { // A block.
 			blocks = append(blocks, interval)
 		} else { // A gap.
@@ -106,7 +107,7 @@ func solve(file fs.File) {
 			for j := gaps[t].L; j < gaps[t].L+blocks[b].Len(); j++ {
 				sum2 += uint64(j * b)
 			}
-			gaps[t] = util.Interval{L: gaps[t].L + blocks[b].Len(), R: gaps[t].R}
+			gaps[t] = Interval{L: gaps[t].L + blocks[b].Len(), R: gaps[t].R}
 			if gaps[t].Empty() {
 				gaps = slices.Delete(gaps, t, t+1)
 			}
@@ -121,7 +122,7 @@ func solve(file fs.File) {
 	fmt.Printf("Task 2 - sum: %d\n", sum2)
 }
 
-func movable(block util.Interval, gaps []util.Interval) int {
+func movable(block Interval, gaps []Interval) int {
 	for i, v := range gaps {
 		if v.L > block.L { // Can't move to the right of original block.
 			return -1
