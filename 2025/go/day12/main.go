@@ -11,7 +11,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/zvold/aoc/2023/go/util"
+	"github.com/zvold/aoc/util/go"
 	t "github.com/zvold/aoc/2025/go/day12/internal/tiles"
 )
 

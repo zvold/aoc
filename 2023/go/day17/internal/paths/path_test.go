@@ -3,7 +3,7 @@ package paths
 import (
 	"testing"
 
-	"github.com/zvold/aoc/2023/go/util"
+	"github.com/zvold/aoc/util/go"
 )
 
 func TestPath_String(t *testing.T) {

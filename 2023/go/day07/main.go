@@ -12,7 +12,7 @@ import (
 	"strconv"
 
 	"github.com/zvold/aoc/2023/go/day07/internal/hand"
-	"github.com/zvold/aoc/2023/go/util"
+	"github.com/zvold/aoc/util/go"
 )
 
 //go:embed input-1.txt

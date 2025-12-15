@@ -10,7 +10,7 @@ import (
 	"math"
 	"strings"
 
-	u "github.com/zvold/aoc/2023/go/util"
+	u "github.com/zvold/aoc/util/go"
 	k "github.com/zvold/aoc/2024/go/day21/internal/keypad"
 )
 

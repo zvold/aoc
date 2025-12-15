@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/zvold/aoc/2023/go/util"
+	"github.com/zvold/aoc/util/go"
 )
 
 var numRe = regexp.MustCompile(`\s?-?\d+\b`)

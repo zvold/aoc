@@ -9,7 +9,7 @@ import (
 	"log"
 
 	"github.com/zvold/aoc/2023/go/day13/internal/grid"
-	"github.com/zvold/aoc/2023/go/util"
+	"github.com/zvold/aoc/util/go"
 )
 
 //go:embed input-1.txt

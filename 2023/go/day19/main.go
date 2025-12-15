@@ -5,7 +5,7 @@ import (
 	"embed"
 	"flag"
 	"fmt"
-	u "github.com/zvold/aoc/2023/go/util"
+	u "github.com/zvold/aoc/util/go"
 	"io/fs"
 	"log"
 	"regexp"

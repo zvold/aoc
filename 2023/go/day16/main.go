@@ -9,7 +9,7 @@ import (
 	"log"
 	"slices"
 
-	u "github.com/zvold/aoc/2023/go/util"
+	u "github.com/zvold/aoc/util/go"
 )
 
 //go:embed input-1.txt

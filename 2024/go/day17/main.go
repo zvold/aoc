@@ -11,7 +11,7 @@ import (
 	"slices"
 	"strings"
 
-	u "github.com/zvold/aoc/2023/go/util"
+	u "github.com/zvold/aoc/util/go"
 	i "github.com/zvold/aoc/2024/go/day17/internal/instr"
 )
 
